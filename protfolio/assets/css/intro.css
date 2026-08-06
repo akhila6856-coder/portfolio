@@ -1,0 +1,249 @@
+/* ================================================
+   FAANG INTRO SCREEN — Premium Black & Gold
+   Derangula Akhila Portfolio
+================================================ */
+
+/* ---- Base ---- */
+#introScreen {
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    background: #0A0A0A;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: opacity .7s ease, transform .7s ease;
+}
+
+#introScreen.exit {
+    opacity: 0;
+    transform: scale(1.06);
+    pointer-events: none;
+}
+
+#introScreen.gone {
+    display: none;
+}
+
+/* ---- Particle Canvas ---- */
+#introCanvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+/* ---- Spotlight ---- */
+.intro-spotlight {
+    position: absolute;
+    top: -20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(
+        ellipse at center,
+        rgba(255,215,0,.09) 0%,
+        rgba(255,215,0,.03) 40%,
+        transparent 70%
+    );
+    pointer-events: none;
+    animation: spotlightPulse 4s ease-in-out infinite;
+}
+
+@keyframes spotlightPulse {
+    0%, 100% { opacity: .7; transform: translateX(-50%) scale(1);    }
+    50%       { opacity: 1;  transform: translateX(-50%) scale(1.08); }
+}
+
+/* ---- Circuit Canvas (fullscreen, behind content) ---- */
+#circuitCanvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ---- Content wrapper ---- */
+.intro-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    text-align: center;
+    padding: 0 20px;
+    opacity: 0;
+    animation: introFadeIn .6s ease .5s forwards;
+}
+
+@keyframes introFadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- Gold Line ---- */
+.intro-line-wrap {
+    width: 220px;
+    height: 2px;
+    background: rgba(255,215,0,.12);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 36px;
+}
+
+.intro-line {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, transparent, #FFD700, #FFEA00, #FFD700, transparent);
+    border-radius: 2px;
+    animation: lineDraw .9s cubic-bezier(.4,0,.2,1) .4s forwards;
+    box-shadow: 0 0 12px rgba(255,215,0,.6);
+}
+
+@keyframes lineDraw {
+    to { width: 100%; }
+}
+
+/* ---- Typing text ---- */
+.intro-typing-wrap {
+    font-family: 'Poppins', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: #FFFFFF;
+    letter-spacing: .5px;
+    min-height: 34px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.intro-cursor {
+    color: #FFD700;
+    font-weight: 300;
+    animation: cursorBlink .8s step-end infinite;
+}
+
+@keyframes cursorBlink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0; }
+}
+
+/* ---- Tagline ---- */
+.intro-tagline {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(207,207,207,.7);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    max-width: 480px;
+    line-height: 1.7;
+    margin-bottom: 52px;
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity .6s ease, transform .6s ease;
+}
+
+.intro-tagline.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ---- Progress ---- */
+.intro-progress-wrap {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 320px;
+    max-width: 90vw;
+    margin-bottom: 24px;
+}
+
+.intro-progress-bar {
+    flex: 1;
+    height: 2px;
+    background: rgba(255,215,0,.12);
+    border-radius: 2px;
+    overflow: visible;
+    position: relative;
+}
+
+.intro-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #FFD700, #FFEA00);
+    border-radius: 2px;
+    transition: width .05s linear;
+    position: relative;
+}
+
+.intro-progress-fill::after {
+    content: '';
+    position: absolute;
+    right: -1px; top: 50%;
+    transform: translateY(-50%);
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #FFD700;
+    box-shadow: 0 0 8px #FFD700, 0 0 16px rgba(255,215,0,.6);
+}
+
+.intro-progress-glow {
+    position: absolute;
+    inset: -3px;
+    background: linear-gradient(90deg, transparent, rgba(255,215,0,.25), transparent);
+    border-radius: 4px;
+    pointer-events: none;
+    animation: progressGlow 1.5s ease-in-out infinite;
+}
+
+@keyframes progressGlow {
+    0%, 100% { opacity: .4; }
+    50%       { opacity: .9; }
+}
+
+.intro-percent {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: #FFD700;
+    min-width: 36px;
+    text-align: right;
+    letter-spacing: .5px;
+}
+
+/* ---- Skip hint ---- */
+.intro-skip {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: rgba(136,136,136,.6);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: introFadeIn .5s ease 1.2s forwards;
+}
+
+/* ---- Particle scatter on exit ---- */
+#introScreen.scattering canvas {
+    animation: scatterFade .6s ease forwards;
+}
+
+@keyframes scatterFade {
+    to { opacity: 0; transform: scale(1.5); }
+}
+
+/* ---- Reduced motion ---- */
+@media (prefers-reduced-motion: reduce) {
+    #introScreen { transition: opacity .1s; }
+    .intro-line   { animation-duration: .1s; }
+    .intro-spotlight { animation: none; }
+    .intro-progress-glow { animation: none; }
+    #circuitCanvas { display: none; }
+}
